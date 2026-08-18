@@ -8,6 +8,8 @@ Development tools for the Novera game project. This repository contains utility 
 |---------|------|-------------|
 | ZipArchive | Static Lib | Zip archive library (MFC dynamic) |
 | ZipArc | App | Zip archive test application (MFC dynamic) |
+| LSLog | Static Lib | Logging library (static runtime) |
+| ioPac | Static Lib | Pack file system library (static, patch variant) |
 | PatchManager | App | Patch management tool (MFC static, /MT) |
 | LSMonitor | App | Server monitoring tool (MFC dynamic) |
 
@@ -16,7 +18,6 @@ Development tools for the Novera game project. This repository contains utility 
 - Visual Studio 2010 (or VS 2022 with v100 platform toolset)
 - Premake5 (beta 8)
 - Windows SDK 7.0A
-- SourceClient repository (PatchManager and LSMonitor depend on ioPac, LSLog, TownPortal from SourceClient)
 
 ## Building
 
@@ -30,21 +31,18 @@ msbuild build\Tool.sln /p:Configuration=Debug /p:Platform=Win32 /p:PlatformTools
 ```
 SourceTool/
 ├── premake5.lua          # Premake5 build configuration
-├── scripts/              # Build helper scripts
+├── scripts/              # Build helper scripts (gen_version.bat)
 ├── src/                  # Source code
 │   ├── ziparchive320/    # ZipArchive library + ZipArc test app
+│   ├── ioPac/            # Pack file system (static, patch variant)
+│   │   └── ZipArchive/   # Pre-built ZipArchive headers
+│   ├── LSLog/            # Logging library
 │   ├── PatchManager/     # Patch management tool
 │   └── LSMonitor/        # Server monitoring tool
 ├── lib/                  # Build outputs (.lib) + pre-built dependencies
+│   └── ZipArchive/       # Pre-built ZipArchive static libs
 └── build/                # Generated VS2010 project files (gitignored)
 ```
-
-## Dependencies
-
-PatchManager and LSMonitor reference headers and static libraries from the SourceClient repository:
-
-- `../SourceClient/src/` — Shared source headers (ioPac, LSLog, TownPortal)
-- `../SourceClient/lib/` — Pre-built static libraries (ioPacStatic, LSLogStatic, TownPortalStatic)
 
 ## License
 

@@ -81,6 +81,43 @@ project "ZipArc"
         ["Resource Files"] = { "src/ziparchive320/ZipArc/**.rc" },
     }
 
+group "Libs"
+
+-- LSLog (static lib)
+project "LSLog"
+    kind "StaticLib"
+    language "C++"
+    location "build"
+    staticruntime "On"
+    defines { "LSLOG_STATIC" }
+    files { "src/LSLog/**.h", "src/LSLog/**.cpp" }
+    vpaths {
+        ["Source Files"] = { "src/LSLog/**.cpp" },
+        ["Header Files"] = { "src/LSLog/**.h" },
+    }
+    filter "configurations:Debug" runtime "Debug"; targetname "LSLogStaticd"
+    filter "configurations:Release" runtime "Release"; targetname "LSLogStatic"
+    filter {}
+
+-- ioPac (static lib, patch variant)
+project "ioPac"
+    kind "StaticLib"
+    language "C++"
+    location "build"
+    staticruntime "On"
+    defines { "STATIC_PAC_API", "PATCH_PAC_API" }
+    files { "src/ioPac/**.h", "src/ioPac/**.cpp" }
+    removefiles { "src/ioPac/main.cpp", "src/ioPac/Script1.rc" }
+    libdirs { "lib", "lib/ZipArchive" }
+    vpaths {
+        ["Source Files"] = { "src/ioPac/**.cpp" },
+        ["Header Files"] = { "src/ioPac/**.h" },
+        ["Resource Files"] = { "src/ioPac/**.rc" },
+    }
+    filter "configurations:Debug" runtime "Debug"; targetname "ioPacStaticPatchd"
+    filter "configurations:Release" runtime "Release"; targetname "ioPacStaticPatch"
+    filter {}
+
 group "Tools"
 
 -- PatchManager (MFC static app)
@@ -91,9 +128,9 @@ project "PatchManager"
     mfc "Static"
     defines { "_WINDOWS" }
     staticruntime "On"
-    includedirs { "src/PatchManager", "../SourceClient/src/PatchManager", "../SourceClient/src" }
-    libdirs { "lib", "../SourceClient/lib", "../SourceClient/lib/ZipArchive" }
-    links { "ws2_32", "version" }
+    includedirs { "src/PatchManager", "src" }
+    libdirs { "lib" }
+    links { "ws2_32", "version", "LSLog", "ioPac" }
     files {
         "src/PatchManager/**.cpp",
         "src/PatchManager/**.h",
