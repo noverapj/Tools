@@ -41,13 +41,16 @@ scripts\build_project.bat                            # List available projects
 
 ```
 SourceTool/
+├── build.bat             # Premake5 generator (auto-downloads premake5)
 ├── premake5.lua          # Premake5 build configuration
-├── scripts/              # Build helper scripts (gen_version.bat)
+├── scripts/              # Build scripts (build.bat, build_project.bat, gen_version.bat)
 ├── src/                  # Source code
 │   ├── ziparchive320/    # ZipArchive library + ZipArc test app
 │   ├── ioPac/            # Pack file system (static, patch variant)
 │   │   └── ZipArchive/   # Pre-built ZipArchive headers
 │   ├── LSLog/            # Logging library
+│   ├── TownPortal/       # TownPortal headers
+│   ├── include/          # Shared headers (common.h)
 │   ├── PatchManager/     # Patch management tool
 │   └── LSMonitor/        # Server monitoring tool
 ├── lib/                  # Build outputs (.lib) + pre-built dependencies
