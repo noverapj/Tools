@@ -152,8 +152,8 @@ project "LSMonitor"
     location "build"
     mfc "Dynamic"
     defines { "_WINDOWS" }
-    includedirs { "src/LSMonitor", "../SourceClient/src/LSMonitor", "../SourceClient/src" }
-    libdirs { "lib", "../SourceClient/lib" }
+    includedirs { "src/LSMonitor", "src" }
+    libdirs { "lib" }
     pchheader "stdafx.h"
     pchsource "src/LSMonitor/stdafx.cpp"
     files {
